@@ -1,0 +1,46 @@
+package testFx;
+
+
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.effect.Reflection;
+import javafx.scene.effect.SepiaTone;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+
+public class Main extends Application {
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage)  {
+
+        Group group = new Group();
+
+        Rectangle rectangleRed = new Rectangle(0,0,200,200);
+        rectangleRed.setFill(Color.RED);
+
+        Rectangle rectangleBlue = new Rectangle(100,100,200,200);
+        rectangleBlue.setFill(Color.BLUE);
+
+        group.getChildren().add(rectangleRed);
+        group.getChildren().add(rectangleBlue);
+
+        SepiaTone sepiaTone = new SepiaTone();
+        group.setEffect(sepiaTone);
+
+        Reflection reflection = new Reflection();
+        rectangleBlue.setEffect(reflection);
+        rectangleRed.setEffect(reflection);
+
+
+        primaryStage.setScene(new Scene(group));
+        primaryStage.show();
+
+    }
+}
