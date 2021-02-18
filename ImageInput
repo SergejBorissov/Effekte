@@ -1,0 +1,65 @@
+package testFx;
+
+
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.effect.ImageInput;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
+
+/**
+ * @author Sergej Borissov
+ *
+ * Image Input
+ * Beim drücken auf das Image,
+ * reagiert es wie ein Button
+ */
+
+
+public class Main extends Application {
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws FileNotFoundException {
+
+        Button button = new Button("dieser Button existiert als IMage");
+
+        Image image = new Image(new FileInputStream("/home/sborissov/Downloads/zen.png"));
+        ImageInput effect = new ImageInput(image);
+        button.setEffect(effect);
+
+        button.setOnAction(event -> System.out.println("Klick"));
+
+        ImageView imageView = new ImageView(image);
+
+        imageView.setX(50);
+        imageView.setY(25);
+
+        imageView.setFitHeight(455);
+        imageView.setFitWidth(500);
+
+        imageView.setPreserveRatio(true);
+
+        Group group = new Group(imageView, button);
+
+        Scene scene = new Scene(group, 600, 500);
+
+        primaryStage.setTitle("Image show");
+
+        primaryStage.setScene(scene);
+
+        primaryStage.show();
+
+
+    }
+}
