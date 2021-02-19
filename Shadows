@@ -1,0 +1,57 @@
+package testFx;
+
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.effect.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+import java.io.FileNotFoundException;
+
+/**
+ * @author Sergej Borissov
+ *
+ * Effekte Schatten
+ */
+
+public class Main extends Application {
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws FileNotFoundException {
+
+      Group layout = new Group();
+      Rectangle rectangle = new Rectangle(0,0,300,300);
+        rectangle.setFill(Color.AQUA);
+        /**
+         * The Effect shadow transform
+         * a node complet in a shadow
+         */
+      //Shadow shadow = new Shadow();
+      /*
+        DropShadow shadow = new DropShadow();
+        shadow.setRadius(2321);
+
+        /**
+         * .setOffset verschiebt den Schatten
+               //shadow.setOffsetX(20);
+        //shadow.setOffsetY(20);
+       */
+        
+        InnerShadow shadow = new InnerShadow();
+        shadow.setOffsetX(-22);
+        shadow.setOffsetY(-22);
+        shadow.setRadius(100);
+
+        rectangle.setEffect(shadow);
+        layout.getChildren().add(rectangle);
+
+        primaryStage.setScene(new Scene(layout));
+        primaryStage.show();
+
+    }
+}
