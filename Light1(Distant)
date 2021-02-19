@@ -1,0 +1,81 @@
+package testFx;
+
+import javafx.application.Application;
+import javafx.geometry.VPos;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Slider;
+import javafx.scene.effect.*;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import java.io.FileNotFoundException;
+
+/**
+ * @author Sergej Borissov
+ *
+ * Effekte Licht
+ */
+
+public class Main extends Application {
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws FileNotFoundException {
+
+        Light.Distant light = new Light.Distant();
+        //light.colorProperty().set(Color.RED);
+
+        VBox vBox = new VBox();
+
+        Text text = new Text("Sample");
+        text.setFill(Color.STEELBLUE);
+        /**
+         * Lighting Klasse verpackt
+         * den Effekt, Vermittler
+         */
+        text.setEffect(new Lighting(light));
+
+        text.setTextOrigin(VPos.TOP);
+        text.setFont(Font.font(150));
+
+        Rectangle rectangle = new Rectangle();
+        rectangle.setX(0);
+        rectangle.setY(0);
+        rectangle.setWidth(600);
+        rectangle.setHeight(300);
+        rectangle.setFill(Color.WHITE);
+        rectangle.setEffect(new Lighting(light));
+
+
+        Group group = new Group();
+        group.getChildren().add(rectangle);
+        group.getChildren().add(text);
+        vBox.getChildren().add(group);
+
+
+        Slider slider1 = new Slider();
+        /**
+         * azimuthProperty = konfiguriert die Richtung des Lichtes
+         */
+        slider1.valueProperty().bindBidirectional(light.azimuthProperty());
+
+
+        Slider slider2 = new Slider();
+        /**
+         * elevationProperty = beleuchtungsstärke
+         */
+        slider2.valueProperty().bindBidirectional(light.elevationProperty());
+
+        vBox.getChildren().addAll(slider1,slider2);
+
+        primaryStage.setScene(new Scene(vBox));
+        primaryStage.show();
+    }
+}
