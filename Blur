@@ -1,0 +1,39 @@
+package testFx;
+
+import javafx.application.Application;
+import javafx.beans.property.Property;
+import javafx.scene.Scene;
+import javafx.scene.control.TableView;
+import javafx.scene.effect.GaussianBlur;
+import javafx.scene.effect.MotionBlur;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+
+/**
+ * @author Sergej Borissov
+ * Blur effect
+ */
+
+public class Main extends Application {
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+
+        MotionBlur effekt = new MotionBlur();
+
+        VBox vBox = new VBox();
+
+        TableView<Property<Number>> table = new PropertyEditTable();
+        table.setEffect(effekt);
+
+        vBox.getChildren().add(table);
+
+        primaryStage.setScene(new Scene(vBox));
+        primaryStage.show();
+    }
+}
