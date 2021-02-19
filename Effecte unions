@@ -1,0 +1,47 @@
+package testFx;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.effect.Reflection;
+import javafx.scene.effect.SepiaTone;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
+import java.io.FileNotFoundException;
+
+
+/**
+ * @author Sergej Borissov
+ *
+ * Effekte verbinden
+ */
+
+public class Main extends Application {
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws FileNotFoundException {
+
+        HBox hBox = new HBox();
+
+        Button buttonnormal = new Button("Normal");
+        Button buttonspezal = new Button("Special");
+
+        SepiaTone sepiaTone = new SepiaTone();
+        Reflection reflection = new Reflection();
+        
+        reflection.setInput(sepiaTone);
+
+        buttonspezal.setEffect(reflection);
+
+        hBox.getChildren().add(buttonnormal);
+        hBox.getChildren().add(buttonspezal);
+
+        primaryStage.setScene(new Scene(hBox));
+        primaryStage.show();
+
+    }
+}
